@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Blogg.Models.category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+<h2>Marres - Movies</h2>
+<img src="~/Content/movies.jpg" alt="">
+<table class="table">
+    <tr>
+        <th>
+            Kategorier vi täcker
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @foreach (var item in Model)
+            {
+                @Html.DisplayFor(modelItem => item.categoryTitle) @Html.Raw("&nbsp;")
+            }
+        </td>
+    </tr>
+</table>

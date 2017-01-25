@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Blogg.Models.post>
+
+@{
+    ViewBag.Title = "Marres - Movies";
+    Layout = "~/Views/shared/_Layout.cshtml";
+
+}
+
+<h1>Welcome to Marres - Movies</h1>
+
+@using (Html.BeginForm("search","BlogPosts",FormMethod.Get))
+{
+    <div>
+        <p class="pull-right"> 
+            @Html.TextBox("word", "Sök text")
+            <button value="Sök" id="searchButton" type="submit">Sök</button>
+        </p>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Nytt inlägg", "Create", "BlogPosts")
+    </p>
+    <div align="center">
+      @Html.ActionLink("DESC", "Index", "BlogPosts", new { sort = "DESC", Type = ViewData["DisplayAs"].ToString() }, null)
+      @Html.ActionLink("ASC", "Index", "BlogPosts", new { sort = "ASC", Type = ViewData["DisplayAs"].ToString() }, null)
+    </div>
+<div align="left">
+    @Html.ActionLink("Normal", "Index", "BlogPosts", new { Type = "normal" }, null)
+    @Html.ActionLink("List", "Index", "BlogPosts", new { Type = "list" }, null)
+</div>
+ @foreach (var item in ViewBag.categories)
+ {
+ @item @Html.Raw("&nbsp;")
+ }
+
+        <div>
+    @if (Model.Count() == 0)
+    {
+        <text> din sökning gav inga resultat</text>
+    }
+    @if ((ViewData["DisplayAs"].ToString() == "normal"))
+            {
+        foreach (var item in Model)
+                {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <div class="row" id="HeaderRow">
+                        <div class="col-xs-8">
+                            @Html.DisplayFor(modelItem => item.postTitle)
+                        </div>
+                        <div class="col-xs-4">
+                            @Html.DisplayFor(modelItem => item.postDate)
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body panelBodyText">
+                    <pre>@Html.DisplayFor(modelItem => item.postBody)</pre>
+                    <div align="right">@Html.ActionLink("Ta bort", "Delete", new { id = item.postID })</div>
+                </div>
+                <div class="panel-footer">
+                        <div class="w3-btn w3-blue-grey w3-hover-blue">@Html.DisplayFor(modelItem => item.categoryName)</div>
+                </div>
+            </div>
+                <hr />
+        }
+    }
+    <div>
+        @if ((ViewData["DisplayAs"].ToString() == "list")) //kollar ifall list mode is on
+            {
+                foreach (var item in Model)
+                {
+
+                <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <div class="row" id="HeaderRow">
+                        <div class="col-xs-8">
+                            @Html.DisplayFor(modelItem => item.postTitle)
+                        </div>
+                        <div class="col-xs-4">
+                            @Html.DisplayFor(modelItem => item.postDate)
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body panelBodyText">
+                    <pre>@Html.ActionLink("Visa", "ViewPost", new { id = item.postID })</pre>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+                <hr />
+                
+            }
+        }
+        </div>
+</div>

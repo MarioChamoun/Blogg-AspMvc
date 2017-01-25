@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Blogg.Models.post>
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+<h2>Inlägg</h2>
+
+<div>
+    @foreach (var item in Model)
+    {
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Namn
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.postTitle)
+        </dd>
+
+        <dt>
+            Datum
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.postDate)
+        </dd>
+
+        <dt>
+            Kategori
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.categoryName)
+        </dd>
+
+        <dt>
+            Beskrivning
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.postBody)
+        </dd>
+
+    </dl>
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Tilbaka till listan", "Index")
+        </div>
+    }
+</div>

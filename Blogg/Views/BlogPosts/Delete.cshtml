@@ -1,0 +1,55 @@
+﻿@model Blogg.Models.post
+
+@{
+    ViewBag.Title = "Ta bort";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+<h2>Ta bort</h2>
+
+<h3>Denna post har blivit borttagen</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Namn
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.postTitle)
+        </dd>
+
+        <dt>
+            Beskrivning
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.postBody)
+        </dd>
+
+        <dt>
+            Kategori
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoryName)
+        </dd>
+
+        <dt>
+            Datum
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.postDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Tilbaka till listan", "Index")
+        </div>
+    }
+</div>
